@@ -21,15 +21,26 @@
     <link href="css/shop-homepage.css" rel="stylesheet">
 
     <!-- ChartJS Library -->
-    <script src="js/chartjs/chart.js"></script>
+    <script src="js/includes/chartjs/chart.js"></script>
 
+    <!-- Tabulator -->
+    <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
+    
+    
     <!-- Jquery Library -->
     <link rel="stylesheet" href="css/jquery-ui.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/includes/jquery.min.js"></script>
+    <script src="js/includes/jquery-ui.min.js"></script>
 
     <!-- VBreaker Javascript Code-->
     <script src="js/vbreaker.js"></script>
+    <script src="js/inputFunctions.js"></script>
+    <script src="js/indexOfCoincidence.js"></script>
+    <script src="js/frequency.js"></script>
+    <script src="js/ngraph.js"></script>
+    <script src="js/encipher.js"></script>
+    <script src="js/decipher.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,11 +88,27 @@
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="list-group-item" id="getngraphs">Get N-Graphs<br/><input id="spinner2" name="value" value="1"></a>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="list-group-item" id="runshifter" onclick="runShifter_Clicked()">Run Shifter</a>
                     </div>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cipherModal">Open Modal</button>
+
                     <p class="lead">Solve</p>
                     <div class="list-group">
+                        <div class="dropdown">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" href="#">
+                                    <span id="selected">Chose option</span><span class="caret"></span></a>
+                            
+                            <ul id="cipherSelect" class="dropdown-menu">
+                                <li value="Caesar"><a href="#">Caesar</a></li>
+                                <li value="Multiplicative"><a href="#">Multiplicative</a></li>
+                                <li value="Affine"><a href="#">Affine</a></li>
+                                <li value="Keyword"><a href="#">Keyword</a></li>
+                                <li value="Hill"><a href="#">Hill</a></li>
+                                <li value="Columnar Transposition"><a href="#">Columnar Transposition</a></li>
+                                <li value="ADFGVX"><a href="#">ADFGVX</a></li>
+                            </ul>
+                        </div><br/>
                         <label for="keyword">Keyword:</label>
                         <input type="text" class="form-control" id="keyword">
-						<label class="checkbox-inline"><input type="checkbox" id="formatCheckbox" value="">Retain Formatting?</label><br/>
+                        <label class="checkbox-inline"><input type="checkbox" id="formatCheckbox" value="">Retain Formatting?</label><br/>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="btn btn-primary" onclick="encipher_Clicked()">Encipher</a>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="btn btn-primary" onclick="decipher_Clicked()">Decipher</a><br/><br/>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="btn btn-primary" onclick="clear_Clicked()">Clear</a>
@@ -93,8 +120,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-primary" onclick="
-hideFrequenciesMenu()">Back</a>
+                        <a href="#" class="btn btn-primary" onclick="hideFrequenciesMenu()">Back</a>
                         <p class="lead" style="text-align: center;">Letter Frequencies</p>
                         <pre id="letterFrequencies" style="white-space: pre-wrap; word-break: break-word;"></pre>
                         <canvas id="frequencyChart"></canvas>
@@ -172,6 +198,28 @@ hideFrequenciesMenu()">Back</a>
 
             </div>
         </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cipherModal" role="dialog">
+        <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div id="cipherModalBody" class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
     </div>
     <!-- /.container -->
 
@@ -192,10 +240,10 @@ hideFrequenciesMenu()">Back</a>
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="js/includes/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/includes/bootstrap.min.js"></script>
 
 </body>
 
