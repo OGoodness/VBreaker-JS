@@ -1,8 +1,8 @@
-function ADFGVXEncrypt() {
-    var plaintext,ciphertext,keysquare,keyword;
-    plaintext = document.getElementById("p").value.toLowerCase().replace(/[^a-z0-9]/g, "");  
-    keysquare = document.getElementById("keysquare").value.toLowerCase().replace(/[^a-z0-9]/g, ""); 
-    keyword = document.getElementById("keyword").value.toLowerCase().replace(/[^a-z]/g, ""); 
+function ADFGVXEncrypt(plaintext, keysquare, keyword) {
+    var ciphertext;
+    plaintext = plaintext.toLowerCase().replace(/[^a-z0-9]/g, "");  
+    keysquare = keysquare.toLowerCase().replace(/[^a-z0-9]/g, ""); 
+    keyword = keyword.toLowerCase().replace(/[^a-z]/g, ""); 
     // do some error checking
     if(plaintext.length < 1){ alert("please enter some plaintext (letters and numbers only)"); return; }    
     if(keysquare.length != 36){ alert("keysquare must be 36 characters in length"); return; }
@@ -26,15 +26,15 @@ function ADFGVXEncrypt() {
         }
         for(j=0; j < colLength; j++) ciphertext += ciphertext1.charAt(j*keyword.length + t);
     }
-    document.getElementById("c").value = ciphertext;
+    return ciphertext;
 }
 
-function ADFGVXDecrypt(f) {
+function ADFGVXDecrypt(ciphertext, keysquare, keyword) {
     //This code is a serious contender for a 'poor code' award, read at your own risk 
    //example keysquare: ai2o0d1bh6mstnwcq4lg7vyrf5e3xz9pjk8u
-    ciphertext = document.getElementById("c").value.toLowerCase().replace(/[^a-z0-9]/g, "");  
-    keysquare = document.getElementById("keysquare").value.toLowerCase().replace(/[^a-z0-9]/g, ""); 
-    keyword = document.getElementById("keyword").value.toLowerCase().replace(/[^a-z]/g, ""); 
+    ciphertext = ciphertext.toLowerCase().replace(/[^a-z0-9]/g, "");  
+    keysquare = keysquare.toLowerCase().replace(/[^a-z0-9]/g, ""); 
+    keyword = keyword.toLowerCase().replace(/[^a-z]/g, ""); 
     klen = keyword.length;
     var re = /[^adfgvx]/;
 
@@ -72,7 +72,7 @@ function ADFGVXDecrypt(f) {
         keyindex = adfgvx.indexOf(plaintext1.charAt(i))*6 + adfgvx.indexOf(plaintext1.charAt(i+1));
         plaintext += keysquare.charAt(keyindex);
     }
-    document.getElementById("p").value = plaintext;
+    return plaintext;
 }
 
 function GenRandKey(){

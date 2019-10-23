@@ -93,9 +93,17 @@
                     <p class="lead">Solve</p>
                     <div class="list-group">
                         <div class="dropdown">
-                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" href="#">
-                                    <span id="selected">Chose option</span><span class="caret"></span></a>
-                            
+                            <label for="cipherSelect">Choose A Cipher</label>
+                            <select id="cipherSelect" class="form-control">
+                                <option value="None" selected>None</option>
+                                <option value="Caesar">Caesar</option>
+                                <option value="Multiplicative">Multiplicative</option>
+                                <option value="Affine">Affine</option>
+                                <option value="Keyword">Keyword</option>
+                                <option value="Hill">Hill</option>
+                                <option value="Columnar Transposition">Columnar Transposition</option>
+                                <option value="ADFGVX">ADFGVX</option>
+                            </select>
                             <ul id="cipherSelect" class="dropdown-menu">
                                 <li value="Caesar"><a href="#">Caesar</a></li>
                                 <li value="Multiplicative"><a href="#">Multiplicative</a></li>

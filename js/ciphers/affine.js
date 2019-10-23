@@ -1,0 +1,6 @@
+function affineEncrypt(){
+
+}
+function affineDecrypt(){
+    
+}

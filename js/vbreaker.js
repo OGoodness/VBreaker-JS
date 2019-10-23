@@ -14,14 +14,40 @@ var alphabetCharts = new Array();
 
 //Solving Buttons
 function encipher_Clicked() {
+    var cipher = document.getElementById("cipherSelect");
+    console.log(cipher.value);
     var keyword = getKeyword();
-    if (keyword != "") {
-        var input = getInput();
-        if (input != "") {
-            encipher(input, keyword);
-        }
+    switch (cipher.value) {
+        case "Caesar":
+          day = "Sunday";
+          break;
+        case "Multiplicative":
+          day = "Monday";
+          break;
+        case "Affine":
+           day = "Tuesday";
+          break;
+        case "Keyword":
+            if (keyword != "") {
+                var input = getInput();
+                if (input != "") {
+                    encipher(input, keyword);
+                }
+            }
+          break;
+        case "Hill":
+          day = "Thursday";
+          break;
+        case "Columnar Transposition":
+          day = "Friday";
+          break;
+        case "ADFGVX":
+          day = "Saturday";
     }
+
 }
+
+
 function decipher_Clicked() {
     var keyword = getKeyword();
     if (keyword != "") {
