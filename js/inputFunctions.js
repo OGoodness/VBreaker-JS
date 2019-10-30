@@ -230,8 +230,9 @@ function hideShifterMenu() {
 
 //Input Checking Functions
 function getKeyword() {
-    var keyword = document.getElementById("keyword").value;
-    if (keyword.length > 0 && (!/[^a-zA-Z]/.test(keyword))) {
+    var keyword = document.getElementById("keyword").value;    
+    if (keyword.length > 0) {
+        keyword = keyword.replace(/[^A-Z0-9]/ig, '');
         $("#inputWarning").fadeOut();
         return keyword.toUpperCase();
     }

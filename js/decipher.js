@@ -29,7 +29,7 @@ function decipher(input, keyword) {
 			}
         }
 		if (!retainFormatting) {
-			if (splitIndex == 2) {
+			if (splitIndex == 5) {
 				splitIndex = 0;
 				output += " ";
 			}
