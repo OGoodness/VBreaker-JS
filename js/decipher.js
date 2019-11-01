@@ -1,5 +1,5 @@
 
-function decipher(input, keyword) {
+function keywordDecipher(input, keyword) {
     var output = "";
     var keyIndex = 0;
 	var retainFormatting = document.getElementById('formatCheckbox').checked;

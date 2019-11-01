@@ -43,18 +43,45 @@ function encipher_Clicked() {
           break;
         case "ADFGVX":
           day = "Saturday";
+        default:
+            
     }
 
 }
 
 
 function decipher_Clicked() {
+    var cipher = document.getElementById("cipherSelect");
+    console.log(cipher.value);
     var keyword = getKeyword();
-    if (keyword != "") {
-        var input = getInput();
-        if (input != "") {
-            decipher(input, keyword);
-        }
+    switch (cipher.value) {
+        case "Caesar":
+          day = "Sunday";
+          break;
+        case "Multiplicative":
+          day = "Monday";
+          break;
+        case "Affine":
+           day = "Tuesday";
+          break;
+        case "Keyword":
+            if (keyword != "") {
+                var input = getInput();
+                if (input != "") {
+                    decipher(input, keyword);
+                }
+            }
+          break;
+        case "Hill":
+          day = "Thursday";
+          break;
+        case "Columnar Transposition":
+          day = "Friday";
+          break;
+        case "ADFGVX":
+          day = "Saturday";
+        default:
+            
     }
 }
 function clear_Clicked() {

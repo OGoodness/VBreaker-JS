@@ -1,5 +1,5 @@
 //Encipher/Decipher Functions
-function encipher(input, keyword) {
+function keywordEncipher(input, keyword) {
     var output = "";
     var keyIndex = 0;
 	var retainFormatting = document.getElementById('formatCheckbox').checked;
