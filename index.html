@@ -25,8 +25,8 @@
     <script src="js/includes/chartjs/chart.js"></script>
 
     <!-- Tabulator -->
-    <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
+    <link href="css/tabulator/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/tabulator/tabulator.min.js"></script>
     
     
     <!-- Jquery Library -->
@@ -89,13 +89,12 @@
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="list-group-item" id="getngraphs">Get N-Graphs<br/><input id="spinner2" name="value" value="1"></a>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="list-group-item" id="runshifter" onclick="runShifter_Clicked()">Run Shifter</a>
                     </div>
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cipherModal">Open Modal</button>
 
                     <p class="lead">Solve</p>
                     <div class="list-group">
                         <div class="dropdown">
                             <label for="cipherSelect">Choose A Cipher</label>
-                            <select id="cipherSelect" class="form-control">
+                            <select id="cipherSelect" class="form-control" onchange="cipherChange()">
                                 <option value="Caesar">Caesar</option>
                                 <option value="Multiplicative">Multiplicative</option>
                                 <option value="Affine">Affine</option>
@@ -104,26 +103,20 @@
                                 <option value="Columnar Transposition">Columnar Transposition</option>
                                 <option value="ADFGVX">ADFGVX</option>
                             </select>
-                            <ul id="cipherSelect" class="dropdown-menu">
-                                <li value="Caesar"><a href="#">Caesar</a></li>
-                                <li value="Multiplicative"><a href="#">Multiplicative</a></li>
-                                <li value="Affine"><a href="#">Affine</a></li>
-                                <li value="Keyword"><a href="#">Keyword</a></li>
-                                <li value="Hill"><a href="#">Hill</a></li>
-                                <li value="Columnar Transposition"><a href="#">Columnar Transposition</a></li>
-                                <li value="ADFGVX"><a href="#">ADFGVX</a></li>
-                            </ul>
                         </div><br/>
 
                         <div id="cipherParameters">
-                            <label for="keyword">Keyword:</label>
+                            <label for="keyword">Key:</label>
                             <input type="text" class="form-control" id="keyword">
 
+                            <div id="caesarCipher">
                             <label for="caesar">Caesar Shift:</label>
-                            <input  type="number" name="quantity" min="0" max="26" class="form-control" id="caesar">
+                            <input  type="number" name="quantity" min="1" max="26" class="form-control" id="caesar">
+                            </div>
 
-                            <label for="keyword">Keyword:</label>
-                            <input type="text" class="form-control" list="multiplicativePossible" autocomplete="off" id="keyword">
+                            <div id="multiplicativeCipher" class="d-none">
+                            <label for="keyword">Multiplicative Key:</label>
+                            <input type="text" class="form-control" list="multiplicativePossible" autocomplete="off" id="multiplicative">
                             <!-- Multiplicative Numbers: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, and 25 -->
                             <datalist id="multiplicativePossible">
                                     <option value="1"></option>
@@ -139,15 +132,11 @@
                                     <option value="23"></option>
                                     <option value="25"></option>
                             </datalist>
-
-                            <label for="keyword">Keyword:</label>
-                            <input type="text" class="form-control" id="keyword">
-
-                            <label for="keyword">Keyword:</label>
-                            <input type="text" class="form-control" id="keyword">
-                            
+                            </div>
+                            <br/>
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cipherModal" id="modal" class="d-none">Open Modal</button>
                         </div>
-
+                        <br/>
                         <label class="checkbox-inline"><input type="checkbox" id="formatCheckbox" value="">Retain Formatting?</label><br/>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="btn btn-primary" onclick="encipher_Clicked()">Encipher</a>
                         <a href="#" data-toggle="offcanvas" data-target=".sidebar-nav" class="btn btn-primary" onclick="decipher_Clicked()">Decipher</a><br/><br/>
@@ -279,9 +268,6 @@
 
     </div>
     <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/includes/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/includes/bootstrap.min.js"></script>
