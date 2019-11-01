@@ -301,35 +301,81 @@ function tableCreate(table = [[1, 2, 3]]) {
       tbdy.appendChild(tr);
     }
     tbl.appendChild(tbdy);
-    body.appendChild(tbl)
+    body.appendChild(tbl);
   }
 
+//Hides inputs
+function hideInputs(){
+    $('#caesarCipher').addClass("d-none");
+    $('#multiplicativeCipher').addClass("d-none");
+    $('#modal').addClass("d-none");
+}
 
+//When page loads, it hides inputs
+ $(document).ready(function(){
+     hideInputs();
+ });
+
+//When chose item in dropdown list changes, only show inputs applicable
+function cipherChange(){
+    hideInputs();
+    switch (document.getElementById('cipherSelect').value){
+        case 'ADFGVX':
+            break;
+        case 'Affine':
+            $('#caesarCipher').removeClass("d-none");
+            $('#multiplicativeCipher').removeClass("d-none");
+            break;
+        case 'AutoKey':
+            break;
+        case 'Caesar':
+            $('#caesarCipher').removeClass("d-none");
+            break;
+        case 'Columnar Transposition':
+            tableCreate();
+            $("#cipherModal").modal('show');
+            $('#modal').removeClass("d-none");
+            break;
+        case 'Hill':
+            break;
+        case 'Keyword':
+            break;
+        case 'Multiplicative':
+            $('#multiplicativeCipher').removeClass("d-none");
+            break;
+        case 'Playfair':
+            $('#modal').removeClass("d-none");
+            break;
+    }
+}
 //Case Statement for encryption
-$(document).ready(function(){
-    $('#cipherSelect li').on('click', function() {
-        $('#selected').text(this.getAttribute("value"));
-        switch (this.getAttribute("value")){
-            case 'ADFGVX':
-                break;
-            case 'Affine':
-                break;
-            case 'AutoKey':
-                break;
-            case 'Caesar':
-                break;
-            case 'Columnar Transposition':
-                tableCreate();
-                $("#cipherModal").modal('show');
-                break;
-            case 'Hill':
-                break;
-            case 'Keyword':
-                break;
-            case 'Playfair':
-                break;
+// $(document).ready(function(){
+//     $('#cipherSelect option:selected').on('click', function() {
+//         $('#cipherSelect').text(this.getAttribute("value"));
+//         switch (this.getAttribute("value")){
+//             case 'ADFGVX':
+//                 alert("TEST");
+//                 break;
+//             case 'Affine':
+//                 break;
+//             case 'AutoKey':
+//                 break;
+//             case 'Caesar':
+//                 break;
+//             case 'Columnar Transposition':
+//                 tableCreate();
+//                 $("#cipherModal").modal('show');
+//                 break;
+//             case 'Hill':
+//                 break;
+//             case 'Keyword':
+//                 break;
+//             case 'Multiplicative':
+//                 break;
+//             case 'Playfair':
+//                 break;
 
-      }
+//       }
 
-    });
-});
+//     });
+// });
