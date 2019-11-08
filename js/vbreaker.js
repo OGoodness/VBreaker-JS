@@ -11,44 +11,49 @@ var alphabetTabContents = new Array();
 var alphabetCharts = new Array();
 
 
+//Each encipher and decipher function pulls a parent function from it's related JS page.
 
 //Solving Buttons
 function encipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
     console.log(cipher.value);
-    var keyword = getKeyword();
+    var input = getInput();
     switch (cipher.value) {
-        case "Caesar":
-          day = "Sunday";
-          break;
-        case "Multiplicative":
-          day = "Monday";
-          break;
-        case "Affine":
-           day = "Tuesday";
-          break;
-        case "Keyword":
-            if (keyword != "") {
-                var input = getInput();
-                if (input != "") {
-                    encipher(input, keyword);
-                }
+      case "Caesar":
+        break;
+      case "Multiplicative":
+        day = "Monday";
+        break;
+      case "Affine":
+          day = "Tuesday";
+        break;
+      case "Keyword":
+        var keyword = getKeyword();
+        if (keyword != "") {
+            if (input != "") {
+              //encipher does not exist, create it in keyword.js
+              keywordEncipher(input, keyword);
             }
-          break;
-        case "Hill":
-          day = "Thursday";
-          break;
-        case "Columnar Transposition":
-          day = "Friday";
-          break;
-        case "ADFGVX":
-          day = "Saturday";
-        default:
+        }
+        break;
+      case "Hill":
+        day = "Thursday";
+        break;
+      case "Columnar Transposition":
+        var keyword = getKeyword();
+        if (keyword != "") {
+          if (input != "") {
+            columnarCipher(input, keyword);
+          }
+        }
+        break;
+      case "ADFGVX":
+        day = "Saturday";
+      default:
             
     }
 
 }
-
 
 function decipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
@@ -56,7 +61,7 @@ function decipher_Clicked() {
     var keyword = getKeyword();
     switch (cipher.value) {
         case "Caesar":
-          day = "Sunday";
+          //check caesar.js
           break;
         case "Multiplicative":
           day = "Monday";
@@ -65,18 +70,24 @@ function decipher_Clicked() {
            day = "Tuesday";
           break;
         case "Keyword":
-            if (keyword != "") {
-                var input = getInput();
-                if (input != "") {
-                    decipher(input, keyword);
-                }
-            }
+          if (keyword != "") {
+              var input = getInput();
+              if (input != "") {
+                //decipher does not exist, create it in keyword.js
+                keywordDecipher(input, keyword);
+              }
+          }
           break;
         case "Hill":
           day = "Thursday";
           break;
         case "Columnar Transposition":
-          day = "Friday";
+          var keyword = getKeyword();
+          if (keyword != "") {
+            if (input != "") {
+              columnarCipher(input, keyword);
+            }
+          }
           break;
         case "ADFGVX":
           day = "Saturday";
@@ -84,6 +95,7 @@ function decipher_Clicked() {
             
     }
 }
+
 function clear_Clicked() {
     //Clear Inputs
     document.getElementById("keyword").value = "";
@@ -96,7 +108,6 @@ function clear_Clicked() {
     //Hide IOC
     $("#ioc").fadeOut();
 }
-
 
 //Shifter Function
 function getShifterValues(input) {
@@ -114,13 +125,12 @@ function getShifterValues(input) {
     return matches;
 }
 
-
-
 //Encipher/Decipher Helper Functions
 function getShiftAmount(letter) {
     letter = letter.toUpperCase().charCodeAt(0);
     return letter - 'A'.charCodeAt(0);
 }
+
 function shiftLetter(input, amount) {
     var lowerBound = 'A'.charCodeAt(0);
     var upperBound = 'Z'.charCodeAt(0);
