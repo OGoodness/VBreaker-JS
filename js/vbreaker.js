@@ -12,6 +12,8 @@ var alphabetCharts = new Array();
 
 
 //Each encipher and decipher function pulls a parent function from it's related JS page.
+//If no input is provided, the getInput() function shows a warning and returns nothing.
+//If there is no keyword, the getKeyword() shows a warning and returns nothing.
 
 //Solving Buttons
 function encipher_Clicked() {
@@ -59,6 +61,7 @@ function decipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
     console.log(cipher.value);
     var keyword = getKeyword();
+    var input = getInput();
     switch (cipher.value) {
         case "Caesar":
           //check caesar.js
@@ -83,6 +86,7 @@ function decipher_Clicked() {
           break;
         case "Columnar Transposition":
           var keyword = getKeyword();
+          //If the keyword box isn't empty, we check input
           if (keyword != "") {
             if (input != "") {
               columnarCipher(input, keyword);

@@ -42,6 +42,7 @@
     <script src="js/ngraph.js"></script>
     <script src="js/encipher.js"></script>
     <script src="js/decipher.js"></script>
+    <script src="js/ciphers/columnarTransposition.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,7 +139,7 @@
 
                             <br/>
 
-                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cipherModal" id="btnModal" class="d-none">Open Modal</button>
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cipherModal" id="btnModal" class="d-none" onclick="openModal()">Open Modal</button>
                             
                         </div>
                         <br/>
@@ -241,11 +242,11 @@
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalHeader">Modal Header</h4>
+                <h4 class="modal-title" id="modalHeader">Guess Keyword Length:</h4>
                 <input type="number" name="quantity" min="2" class="form-control" id="keywordSize" class="d-none">
             </div>
             <div id="cipherModalBody" class="modal-body">
-                <p>Some text in the modal.</p>
+                Some text in the modal.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
