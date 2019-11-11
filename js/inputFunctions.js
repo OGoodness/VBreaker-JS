@@ -348,34 +348,3 @@ function cipherChange(){
             break;
     }
 }
-//Case Statement for encryption
-// $(document).ready(function(){
-//     $('#cipherSelect option:selected').on('click', function() {
-//         $('#cipherSelect').text(this.getAttribute("value"));
-//         switch (this.getAttribute("value")){
-//             case 'ADFGVX':
-//                 alert("TEST");
-//                 break;
-//             case 'Affine':
-//                 break;
-//             case 'AutoKey':
-//                 break;
-//             case 'Caesar':
-//                 break;
-//             case 'Columnar Transposition':
-//                 tableCreate();
-//                 $("#cipherModal").modal('show');
-//                 break;
-//             case 'Hill':
-//                 break;
-//             case 'Keyword':
-//                 break;
-//             case 'Multiplicative':
-//                 break;
-//             case 'Playfair':
-//                 break;
-
-//       }
-
-//     });
-// });

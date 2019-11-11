@@ -18,8 +18,8 @@ var alphabetCharts = new Array();
 //Solving Buttons
 function encipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
-    console.log(cipher.value);
     var input = getInput();
+    var keyword = getKeyword();
     switch (cipher.value) {
       case "Caesar":
         break;
@@ -30,7 +30,6 @@ function encipher_Clicked() {
           day = "Tuesday";
         break;
       case "Keyword":
-        var keyword = getKeyword();
         if (keyword != "") {
             if (input != "") {
               //encipher does not exist, create it in keyword.js
@@ -45,7 +44,9 @@ function encipher_Clicked() {
         var keyword = getKeyword();
         if (keyword != "") {
           if (input != "") {
-            columnarCipher(input, keyword);
+            //Remove spaces
+            input = input.replace(/\s/ig, '');
+            columnarEncipher(input, keyword);
           }
         }
         break;
@@ -59,9 +60,8 @@ function encipher_Clicked() {
 
 function decipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
-    console.log(cipher.value);
-    var keyword = getKeyword();
     var input = getInput();
+    var keyword = getKeyword();
     switch (cipher.value) {
         case "Caesar":
           //check caesar.js
@@ -74,22 +74,21 @@ function decipher_Clicked() {
           break;
         case "Keyword":
           if (keyword != "") {
-              var input = getInput();
-              if (input != "") {
-                //decipher does not exist, create it in keyword.js
-                keywordDecipher(input, keyword);
-              }
+            if (input != "") {
+              //decipher does not exist, create it in keyword.js
+              keywordDecipher(input, keyword);
+            }
           }
           break;
         case "Hill":
           day = "Thursday";
           break;
         case "Columnar Transposition":
-          var keyword = getKeyword();
-          //If the keyword box isn't empty, we check input
           if (keyword != "") {
             if (input != "") {
-              columnarCipher(input, keyword);
+              //Remove spaces
+              input = input.replace(/\s/ig, '');
+              columnarDecipher(input, keyword);
             }
           }
           break;
