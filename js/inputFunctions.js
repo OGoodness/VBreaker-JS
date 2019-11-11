@@ -226,8 +226,6 @@ function hideShifterMenu() {
 }
 
 
-
-
 //Input Checking Functions
 function getKeyword() {
     var keyword = document.getElementById("keyword").value;    
@@ -308,12 +306,14 @@ function tableCreate(table = [[1, 2, 3]]) {
 function hideInputs(){
     $('#caesarCipher').addClass("d-none");
     $('#multiplicativeCipher').addClass("d-none");
-    $('#modal').addClass("d-none");
+    $('#keywordCipher').addClass("d-none");
+    $('#btnModal').addClass("d-none");
 }
 
-//When page loads, it hides inputs
+//When page loads, it hides inputs, Caesar Cipher is default selection
  $(document).ready(function(){
      hideInputs();
+     $('#caesarCipher').removeClass("d-none");
  });
 
 //When chose item in dropdown list changes, only show inputs applicable
@@ -332,50 +332,19 @@ function cipherChange(){
             $('#caesarCipher').removeClass("d-none");
             break;
         case 'Columnar Transposition':
-            tableCreate();
-            $("#cipherModal").modal('show');
-            $('#modal').removeClass("d-none");
+            $('#keywordCipher').removeClass("d-none");
+            $('#btnModal').removeClass("d-none");
             break;
         case 'Hill':
             break;
         case 'Keyword':
+            $('#keywordCipher').removeClass("d-none");
             break;
         case 'Multiplicative':
             $('#multiplicativeCipher').removeClass("d-none");
             break;
         case 'Playfair':
-            $('#modal').removeClass("d-none");
+            $('#btnModal').removeClass("d-none");
             break;
     }
 }
-//Case Statement for encryption
-// $(document).ready(function(){
-//     $('#cipherSelect option:selected').on('click', function() {
-//         $('#cipherSelect').text(this.getAttribute("value"));
-//         switch (this.getAttribute("value")){
-//             case 'ADFGVX':
-//                 alert("TEST");
-//                 break;
-//             case 'Affine':
-//                 break;
-//             case 'AutoKey':
-//                 break;
-//             case 'Caesar':
-//                 break;
-//             case 'Columnar Transposition':
-//                 tableCreate();
-//                 $("#cipherModal").modal('show');
-//                 break;
-//             case 'Hill':
-//                 break;
-//             case 'Keyword':
-//                 break;
-//             case 'Multiplicative':
-//                 break;
-//             case 'Playfair':
-//                 break;
-
-//       }
-
-//     });
-// });
