@@ -46,6 +46,9 @@ function encipher_Clicked() {
           if (input != "") {
             //Remove spaces
             input = input.replace(/\s/ig, '');
+            //Make everything lowercase, should i do this somewhere else??
+            input = input.toLowerCase();
+            keyword = keyword.toLowerCase();
             columnarEncipher(input, keyword);
           }
         }
@@ -88,6 +91,9 @@ function decipher_Clicked() {
             if (input != "") {
               //Remove spaces
               input = input.replace(/\s/ig, '');
+              //Make everything lowercase, should i do this somewhere else??
+              input = input.toLowerCase();
+              keyword = keyword.toLowerCase();
               columnarDecipher(input, keyword);
             }
           }

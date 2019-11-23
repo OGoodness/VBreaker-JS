@@ -24,15 +24,14 @@
     <!-- ChartJS Library -->
     <script src="js/includes/chartjs/chart.js"></script>
 
-    <!-- Tabulator -->
-    <link href="css/tabulator/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="js/tabulator/tabulator.min.js"></script>
-    
-    
     <!-- Jquery Library -->
     <link rel="stylesheet" href="css/jquery-ui.css">
     <script src="js/includes/jquery.min.js"></script>
     <script src="js/includes/jquery-ui.min.js"></script>
+
+    <!-- Tabulator -->
+    <link href="css/tabulator/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/tabulator/tabulator.min.js"></script>
 
     <!-- VBreaker Javascript Code-->
     <script src="js/vbreaker.js"></script>
@@ -242,11 +241,11 @@
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalHeader">Guess Keyword Length:</h4>
+                <h4 class="modal-title" id="modalHeader"></h4>
                 <input type="number" name="quantity" min="2" class="form-control d-none" id="keywordSize">
             </div>
             <div id="cipherModalBody" class="modal-body">
-                <div id="columnarTable" hidden></div>
+                <div id="columnarTable" style="width:100%"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
