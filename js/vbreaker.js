@@ -29,11 +29,11 @@ function encipher_Clicked() {
       case "Affine":
           day = "Tuesday";
         break;
-      case "Keyword":
+      case "Vigenere":
         if (keyword != "") {
             if (input != "") {
               //encipher does not exist, create it in keyword.js
-              keywordEncipher(input, keyword);
+                vigenere(input, keyword, true);
             }
         }
         break;
@@ -72,11 +72,11 @@ function decipher_Clicked() {
         case "Affine":
            day = "Tuesday";
           break;
-        case "Keyword":
+        case "Vigenere":
           if (keyword != "") {
             if (input != "") {
               //decipher does not exist, create it in keyword.js
-              keywordDecipher(input, keyword);
+                vigenere(input, keyword, false);
             }
           }
           break;

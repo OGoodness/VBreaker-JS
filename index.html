@@ -40,8 +40,7 @@
     <script src="js/indexOfCoincidence.js"></script>
     <script src="js/frequency.js"></script>
     <script src="js/ngraph.js"></script>
-    <script src="js/encipher.js"></script>
-    <script src="js/decipher.js"></script>
+    <script src="js/ciphers/vigenere.js"></script>
     <script src="js/ciphers/columnarTransposition.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -99,7 +98,7 @@
                                 <option value="Caesar">Caesar</option>
                                 <option value="Multiplicative">Multiplicative</option>
                                 <option value="Affine">Affine</option>
-                                <option value="Keyword">Keyword</option>
+                                <option value="Vigenere">Vigenere</option>
                                 <option value="Hill">Hill</option>
                                 <option value="Columnar Transposition">Columnar Transposition</option>
                                 <option value="ADFGVX">ADFGVX</option>
@@ -132,9 +131,9 @@
                                 </datalist>
                             </div>
 
-                            <div id="keywordCipher" class="d-none">
-                                <label for="keyword">Keyword:</label>
-                                <input type="text" class="form-control" id="keyword">
+                            <div id="vigenereCipher" class="d-none">
+                                <label for="vigenere">Vigenere:</label>
+                                <input type="text" class="form-control" id="vigenere">
                             </div>
 
                             <br/>
@@ -168,7 +167,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="exTab2" class="container">
+                        <div id="exTab1" class="container">
                             <a href="#" class="btn btn-primary" onclick="hideAlphabetsMenu()">Back</a>
                             <p class="lead" style="text-align: center;">Alphabets</p>
                             <ul id="alphabetTabs" class="nav nav-tabs">
@@ -220,7 +219,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="exTab2" class="container">
+                        <div id="exTab3" class="container">
                             <a href="#" class="btn btn-primary" onclick="hideShifterMenu()">Back</a>
                             <p class="lead" style="text-align: center;">Shifter</p>
 							<div style="display:flex;">

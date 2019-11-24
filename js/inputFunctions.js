@@ -228,7 +228,7 @@ function hideShifterMenu() {
 
 //Input Checking Functions
 function getKeyword() {
-    var keyword = document.getElementById("keyword").value;    
+    var keyword = document.getElementById("vigenere").value;
     if (keyword.length > 0) {
         keyword = keyword.replace(/[^A-Z0-9]/ig, '');
         $("#inputWarning").fadeOut();
@@ -337,8 +337,8 @@ function cipherChange(){
             break;
         case 'Hill':
             break;
-        case 'Keyword':
-            $('#keywordCipher').removeClass("d-none");
+        case 'Vigenere':
+            $('#vigenereCipher').removeClass("d-none");
             break;
         case 'Multiplicative':
             $('#multiplicativeCipher').removeClass("d-none");
