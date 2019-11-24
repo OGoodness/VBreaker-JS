@@ -112,6 +112,12 @@ function clear_Clicked() {
     $("#ioc").fadeOut();
 }
 
+function swapInputOutput() {
+    var temp = $('#input')[0].value;
+    $('#input')[0].value = $('#output')[0].value;
+    $('#output')[0].value = temp;
+}
+
 //Shifter Function
 function getShifterValues(input) {
     input = getAlphabetStrips(input, 0)[0];
