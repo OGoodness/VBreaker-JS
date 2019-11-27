@@ -230,6 +230,7 @@ function hideShifterMenu() {
 function getKeyword() {
     var keyword = document.getElementById("keyword").value;    
     if (keyword.length > 0) {
+        
         keyword = keyword.replace(/[^A-Z0-9]/ig, '');
         $("#inputWarning").fadeOut();
         return keyword.toUpperCase();
@@ -238,6 +239,7 @@ function getKeyword() {
     document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
     return "";
 }
+//Get Input from the input cipher/plain text
 function getInput() {
     var input = document.getElementById("input").value;
     if (input.length > 0) {
@@ -308,6 +310,7 @@ function hideInputs(){
     $('#multiplicativeCipher').addClass("d-none");
     $('#keywordCipher').addClass("d-none");
     $('#btnModal').addClass("d-none");
+    $('#hillCipher').addClass("d-none");
 }
 
 //When page loads, it hides inputs, Caesar Cipher is default selection
@@ -336,6 +339,7 @@ function cipherChange(){
             $('#btnModal').removeClass("d-none");
             break;
         case 'Hill':
+            $('#hillCipher').removeClass("d-none");
             break;
         case 'Keyword':
             $('#keywordCipher').removeClass("d-none");
