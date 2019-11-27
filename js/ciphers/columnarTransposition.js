@@ -77,7 +77,6 @@ function columnarEncipher(input, keyword){
 //This function handles the deciphering process, remember in by columns and out by rows
 function columnarDecipher(input, keyword){
     $("#modalHeader").text("Decrypting");
-
     
 }
 

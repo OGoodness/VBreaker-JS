@@ -34,8 +34,7 @@
     <script src="js/includes/jquery.min.js"></script>
     <script src="js/includes/jquery-ui.min.js"></script>
 
-    <!-- VBreaker Javascript Code-->
-    <script src="js/vbreaker.js"></script>
+    <!-- Cipher Javascript Code-->
     <script src="js/inputFunctions.js"></script>
     <script src="js/indexOfCoincidence.js"></script>
     <script src="js/frequency.js"></script>
@@ -43,6 +42,14 @@
     <script src="js/encipher.js"></script>
     <script src="js/decipher.js"></script>
     <script src="js/ciphers/columnarTransposition.js"></script>
+    <script src="js/ciphers/caesar.js"></script>
+    <script src="js/ciphers/keyword.js"></script>
+    <script src="js/ciphers/affine.js"></script>
+    <script src="js/ciphers/multiplicative.js"></script>
+    
+
+    <!-- VBreaker Javascript Code-->
+    <script src="js/vbreaker.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -109,12 +116,12 @@
                         <div id="cipherParameters">
                             <div id="caesarCipher">
                                 <label for="caesar">Caesar Shift:</label>
-                                <input  type="number" name="quantity" min="1" max="26" class="form-control" id="caesar">
+                                <input  type="number" name="quantity" min="1" max="26" class="form-control" id="caesar-shift" value=1>
                             </div>
 
                             <div id="multiplicativeCipher" class="d-none">
                                 <label for="keyword">Multiplicative Key:</label>
-                                <input type="text" class="form-control" list="multiplicativePossible" autocomplete="off" id="multiplicative">
+                                <input type="text" class="form-control" list="multiplicativePossible" value="1" autocomplete="off" id="multiplicative">
                                 <!-- Multiplicative Numbers: 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, and 25 -->
                                 <datalist id="multiplicativePossible">
                                         <option value="1"></option>
@@ -135,6 +142,11 @@
                             <div id="keywordCipher" class="d-none">
                                 <label for="keyword">Keyword:</label>
                                 <input type="text" class="form-control" id="keyword">
+                            </div>
+
+                            <div id="hillCipher" class="d-none">
+                                <label for="keyword">Hill:</label>
+                                <input type="text" class="form-control" id="hill">
                             </div>
 
                             <br/>
@@ -278,6 +290,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/includes/bootstrap.min.js"></script>
+    <script src="js/ciphers/columnarTransposition.js"></script>
 
 </body>
 
