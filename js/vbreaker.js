@@ -21,49 +21,54 @@ function encipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
     var unformatted_input, input = getInput();
     if (!retainFormatting){
-      //Will need to change this for ciphers that have numbers
-      input = input.replace(/[^a-zA-Z]/g, "");
+        //Will need to change this for ciphers that have numbers
+        input = input.replace(/[^a-zA-Z]/g, "");
     }
     console.log("Encrypt");
     var output = "";
     switch (cipher.value) {
-      case "Caesar":
-        var caesarShift = document.getElementById("caesar-shift").value;
-        var output = caeserCipher(caesarShift, input);
-        break;
-      case "Multiplicative":
-        var multiShift = document.getElementById("multiplicative").value;
-        output = affine(multiShift, 0, input);
-        break;
-      case "Affine":
-        var caesarShift = document.getElementById("caesar-shift").value;
-        var multiShift = document.getElementById("multiplicative").value;
-        output = affine(multiShift, caesarShift, input);
-        break;
-      case "Vigenere":
-        if (keyword != "") {
-            if (input != "") {
-              //encipher does not exist, create it in keyword.js
-                vigenere(input, keyword, true);
+        case "Caesar":
+            var caesarShift = document.getElementById("caesar-shift").value;
+            var output = caeserCipher(caesarShift, input);
+            break;
+        case "Multiplicative":
+            var multiShift = document.getElementById("multiplicative").value;
+            output = affine(multiShift, 0, input);
+            break;
+        case "Affine":
+            var caesarShift = document.getElementById("caesar-shift").value;
+            var multiShift = document.getElementById("multiplicative").value;
+            output = affine(multiShift, caesarShift, input);
+            break;
+        case "Vigenere":
+            if (keyword != "") {
+                if (input != "") {
+                    //encipher does not exist, create it in keyword.js
+                    vigenere(input, keyword, true);
+                }
             }
-        }
-        break;
-      case "Hill":
-        day = "Thursday";
-        break;
-      case "Columnar Transposition":
-        var keyword = getKeyword();
-        if (keyword != "") {
-          if (input != "") {
-            //Remove spaces
-            input = input.replace(/\s/ig, '');
-            columnarEncipher(input, keyword);
-          }
-        }
-        break;
-      case "ADFGVX":
-        day = "Saturday";
-      default:
+            break;
+        case "Hill":
+            var key00 = $('#hillKey00').val();
+            var key01 = $('#hillKey01').val();
+            var key10 = $('#hillKey10').val();
+            var key11 = $('#hillKey11').val();
+            var hillValue = $('#input').val();
+            output = hillEncrypt(hillValue, key00 + " " + key01 + " " + key10 + " " + key11);
+            break;
+        case "Columnar Transposition":
+            var keyword = getKeyword();
+            if (keyword != "") {
+                if (input != "") {
+                    //Remove spaces
+                    input = input.replace(/\s/ig, '');
+                    columnarEncipher(input, keyword);
+                }
+            }
+            break;
+        case "ADFGVX":
+            day = "Saturday";
+        default:
 
     }
     formatAndDisplayCipherText(input, output, retainFormatting);
@@ -72,50 +77,56 @@ function encipher_Clicked() {
 function decipher_Clicked() {
     var retainFormatting = document.getElementById('formatCheckbox').checked;
     var cipher = document.getElementById("cipherSelect");
-    var keyword = getKeyword();
     var unformatted_input, input = getInput();
     if (!retainFormatting){
-      //Will need to change this for ciphers that have numbers
-      input = input.replace(/[^a-zA-Z]/g, "");
+        //Will need to change this for ciphers that have numbers
+        input = input.replace(/[^a-zA-Z]/g, "");
     }
     switch (cipher.value) {
         case "Caesar":
             var caesarShift = document.getElementById("caesar-shift").value;
             var output = caeserCipher(caesarShift, input, "decrypt");
-          break;
+            break;
         case "Multiplicative":
             var multiShift = document.getElementById("multiplicative").value;
             output = affine(multiShift, caesarShift, input, "decrypt");
-          break;
+            break;
         case "Affine":
             var caesarShift = document.getElementById("caesar-shift").value;
             var multiShift = document.getElementById("multiplicative").value;
             output = affine(multiShift, caesarShift, input, "decrypt");
-          break;
+            break;
         case "Vigenere":
-          if (keyword != "") {
-            if (input != "") {
-              //decipher does not exist, create it in keyword.js
-                vigenere(input, keyword, false);
+            var keyword = getKeyword();
+            if (keyword != "") {
+                if (input != "") {
+                    //decipher does not exist, create it in keyword.js
+                    vigenere(input, keyword, false);
+                }
             }
-          }
-          break;
+            break;
         case "Hill":
-          day = "Thursday";
-          break;
+            var key00 = $('#hillKey00').val();
+            var key01 = $('#hillKey01').val();
+            var key10 = $('#hillKey10').val();
+            var key11 = $('#hillKey11').val();
+            var hillValue = $('#output').val();
+            var hillValue = $('#input').val();
+            output = hillDecrypt(hillValue, key00 + " " + key01 + " " + key10 + " " + key11);
+            break;
         case "Columnar Transposition":
-          if (keyword != "") {
-            if (input != "") {
-              //Remove spaces
-              input = input.replace(/\s/ig, '');
-              columnarDecipher(input, keyword);
+            if (keyword != "") {
+                if (input != "") {
+                    //Remove spaces
+                    input = input.replace(/\s/ig, '');
+                    columnarDecipher(input, keyword);
+                }
             }
-          }
-          break;
+            break;
         case "ADFGVX":
-          day = "Saturday";
+            day = "Saturday";
         default:
-            
+
     }
     console.log(output);
     formatAndDisplayCipherText(input, output, retainFormatting);
@@ -183,11 +194,11 @@ function shiftLetter(input, amount) {
 
 //Formate cipher/plain text when you output. Unknown if should handle format in cipher or here
 function formatAndDisplayCipherText(input, output, retainFormatting){
-  if (retainFormatting) {
-    console.log("Determine if need to change formatting: " + retainFormatting);
-  }else{
-    console.log(output);
-    output = output.replace(/(.{5})/g,"$1 ");
-  }
-  document.getElementById("output").value = output;
+    if (retainFormatting) {
+        console.log("Determine if need to change formatting: " + retainFormatting);
+    }else{
+        console.log(output);
+        output = output.replace(/(.{5})/g,"$1 ");
+    }
+    document.getElementById("output").value = output;
 }
