@@ -28,15 +28,14 @@
     <!-- ChartJS Library -->
     <script src="js/includes/chartjs/chart.js"></script>
 
-    <!-- Tabulator -->
-    <link href="css/tabulator/tabulator.min.css" rel="stylesheet">
-    <script type="text/javascript" src="js/tabulator/tabulator.min.js"></script>
-    
-    
     <!-- Jquery Library -->
     <link rel="stylesheet" href="css/jquery-ui.css">
     <script src="js/includes/jquery.min.js"></script>
     <script src="js/includes/jquery-ui.min.js"></script>
+
+    <!-- Tabulator -->
+    <link href="css/tabulator/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/tabulator/tabulator.min.js"></script>
 
     <!-- Cipher Javascript Code-->
     <script src="js/inputFunctions.js"></script>
@@ -112,7 +111,6 @@
                                 <option value="Vigenere">Vigenere</option>
                                 <option value="Hill">Hill</option>
                                 <option value="Columnar Transposition">Columnar Transposition</option>
-                                <option value="ADFGVX">ADFGVX</option>
                             </select>
                         </div><br/>
 
@@ -146,6 +144,12 @@
                                 <label for="vigenere">Vigenere:</label>
                                 <input type="text" class="form-control" id="vigenere">
                             </div>
+
+                            <div id="transpositionCipher" class="d-none">
+                                <label for="transposition">Transposition:</label>
+                                <input type="text" class="form-control" id="transposition">
+                            </div>
+
 
                             <div id="hillCipher" class="d-none">
                                 <label for="keyword">Hill:</label>
@@ -257,11 +261,11 @@
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalHeader">Guess Keyword Length:</h4>
+                <h4 class="modal-title" id="modalHeader"></h4>
                 <input type="number" name="quantity" min="2" class="form-control d-none" id="keywordSize">
             </div>
             <div id="cipherModalBody" class="modal-body">
-                <div id="columnarTable" hidden></div>
+                <div id="columnarTable" style="width:100%"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

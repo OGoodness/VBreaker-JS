@@ -52,17 +52,18 @@ function encipher_Clicked() {
         day = "Thursday";
         break;
       case "Columnar Transposition":
-        var keyword = getKeyword();
+        var keyword = document.getElementById("transposition").value;
         if (keyword != "") {
           if (input != "") {
             //Remove spaces
             input = input.replace(/\s/ig, '');
-            columnarEncipher(input, keyword);
+            input = input.toLowerCase();
+            keyword = keyword.toLowerCase();
+            //Set the function below equal to output
+            output = columnarEncipher(input, keyword);
           }
         }
         break;
-      case "ADFGVX":
-        day = "Saturday";
       default:
 
     }
@@ -108,12 +109,14 @@ function decipher_Clicked() {
             if (input != "") {
               //Remove spaces
               input = input.replace(/\s/ig, '');
+              //Make everything lowercase, should i do this somewhere else??
+              input = input.toLowerCase();
+              keyword = keyword.toLowerCase();
+              //Set the function below equal to output
               columnarDecipher(input, keyword);
             }
           }
           break;
-        case "ADFGVX":
-          day = "Saturday";
         default:
             
     }
