@@ -12,8 +12,12 @@
 
     <title>VBreaker_JS</title>
 
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
 	
 	<!-- VBreaker CSS -->
     <link href="css/vbreaker.css" rel="stylesheet">
@@ -38,8 +42,7 @@
     <script src="js/indexOfCoincidence.js"></script>
     <script src="js/frequency.js"></script>
     <script src="js/ngraph.js"></script>
-    <script src="js/encipher.js"></script>
-    <script src="js/decipher.js"></script>
+    <script src="js/ciphers/vigenere.js"></script>
     <script src="js/ciphers/columnarTransposition.js"></script>
     <script src="js/ciphers/caesar.js"></script>
     <script src="js/ciphers/keyword.js"></script>
@@ -69,7 +72,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-                <a class="navbar-brand" href="#">VBreaker_JS</a>
+                <a class="navbar-brand" href="#">Cryptanalyze</a>
             </div>
         </div>
         <!-- /.container -->
@@ -83,7 +86,7 @@
                             <p id="ioc" style="text-align:right;" hidden></p>
                             <div class="alert alert-danger" id="inputWarning" hidden> </div>
                             <textarea class="form-control" rows="8" id="input"></textarea>
-                            <br /><br />
+                            <br /><i title="swap" onclick="swapInputOutput()" style="font-size: 30px" class="fa fa-arrows-v"></i><br /><br />
                             <p class="lead">Output</p>
                             <textarea class="form-control" rows="8" id="output"></textarea>
                         </div>
@@ -105,7 +108,7 @@
                                 <option value="Caesar">Caesar</option>
                                 <option value="Multiplicative">Multiplicative</option>
                                 <option value="Affine">Affine</option>
-                                <option value="Keyword">Keyword</option>
+                                <option value="Vigenere">Vigenere</option>
                                 <option value="Hill">Hill</option>
                                 <option value="Columnar Transposition">Columnar Transposition</option>
                                 <option value="ADFGVX">ADFGVX</option>
@@ -138,9 +141,9 @@
                                 </datalist>
                             </div>
 
-                            <div id="keywordCipher" class="d-none">
-                                <label for="keyword">Keyword:</label>
-                                <input type="text" class="form-control" id="keyword">
+                            <div id="vigenereCipher" class="d-none">
+                                <label for="vigenere">Vigenere:</label>
+                                <input type="text" class="form-control" id="vigenere">
                             </div>
 
                             <div id="hillCipher" class="d-none">
@@ -179,7 +182,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="exTab2" class="container">
+                        <div id="exTab1" class="container">
                             <a href="#" class="btn btn-primary" onclick="hideAlphabetsMenu()">Back</a>
                             <p class="lead" style="text-align: center;">Alphabets</p>
                             <ul id="alphabetTabs" class="nav nav-tabs">
@@ -231,7 +234,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="exTab2" class="container">
+                        <div id="exTab3" class="container">
                             <a href="#" class="btn btn-primary" onclick="hideShifterMenu()">Back</a>
                             <p class="lead" style="text-align: center;">Shifter</p>
 							<div style="display:flex;">

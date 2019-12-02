@@ -40,12 +40,11 @@ function encipher_Clicked() {
         var multiShift = document.getElementById("multiplicative").value;
         output = affine(multiShift, caesarShift, input);
         break;
-      case "Keyword":
+      case "Vigenere":
         if (keyword != "") {
             if (input != "") {
               //encipher does not exist, create it in keyword.js
-              var keyword = getKeyword();
-              output = keywordEncipher(input, keyword);
+                vigenere(input, keyword, true);
             }
         }
         break;
@@ -69,7 +68,7 @@ function encipher_Clicked() {
       case "ADFGVX":
         day = "Saturday";
       default:
-      
+
     }
     formatAndDisplayCipherText(input, output, retainFormatting);
 }
@@ -97,11 +96,11 @@ function decipher_Clicked() {
             var multiShift = document.getElementById("multiplicative").value;
             output = affine(multiShift, caesarShift, input, "decrypt");
           break;
-        case "Keyword":
+        case "Vigenere":
           if (keyword != "") {
             if (input != "") {
               //decipher does not exist, create it in keyword.js
-              output = keywordDecipher(input, keyword);
+                vigenere(input, keyword, false);
             }
           }
           break;
@@ -141,6 +140,12 @@ function clear_Clicked() {
 
     //Hide IOC
     $("#ioc").fadeOut();
+}
+
+function swapInputOutput() {
+    var temp = $('#input')[0].value;
+    $('#input')[0].value = $('#output')[0].value;
+    $('#output')[0].value = temp;
 }
 
 //Shifter Function
