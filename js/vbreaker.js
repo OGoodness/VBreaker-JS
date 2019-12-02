@@ -61,7 +61,8 @@ function encipher_Clicked() {
             //Make everything lowercase, should i do this somewhere else??
             input = input.toLowerCase();
             keyword = keyword.toLowerCase();
-            columnarEncipher(input, keyword);
+            //Set the function below equal to output
+            output = columnarEncipher(input, keyword);
           }
         }
         break;
@@ -115,6 +116,7 @@ function decipher_Clicked() {
               //Make everything lowercase, should i do this somewhere else??
               input = input.toLowerCase();
               keyword = keyword.toLowerCase();
+              //Set the function below equal to output
               columnarDecipher(input, keyword);
             }
           }

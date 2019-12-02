@@ -50,30 +50,57 @@ function createEncipherArray(input, keyword){
 
 //This function puts the input into a 2D array based on the keyword
 function createDecipherArray(input, keyword){
-    //Need to create array that fills in each column
-    //I'll need to do some division to know what the dimensions of my array will be
-    
-    //return a 2D array called dArray;
+    //Need lengths to determine array dimensions, h is a counter to go through input characters
+    total = input.length;
+    columns = keyword.length;
+    var h = 0;
+
+    //We divide Input length by Keyword length to know the number of rows we need
+    var rows = Math.ceil(total / columns);
+
+    //Loop to create 2D array using 1D array
+    var dArray = new Array(rows);
+    for (var i = 0; i < dArray.length; i++){
+        dArray[i] = []; //This makes it 2D
+    }
+
+    return dArray;
 }
 
 //This function takes the enciphering array and puts the cipher text in the Output
 function outputCiphertext(keywordList, eArray){
-    var retainFormatting = document.getElementById('formatCheckbox').checked;
-    //Need to split input into sections based on keyword length
-    
-    //I need to loop through and find what number is the smallest in the keywordList
-        //Using what algorithm, i'm not sure what would be best
-    //Then use that as the new minimum to find the next smallest
+    var cipherText = "";
+    var outputList = [...keywordList];
+    //Need to find smallest item in keywordList using Math.min(...array)
+        //Use indexOf(element) to find the keyword letter
+        //then indexOf(element, elementIndex) to search after that index
+        //when it returns -1, you know there aren't others
+    //remember splice and indexOf checks the current index before moving
 
-    //LOOK AT encipher.js AT HOW HE SPLIT THE INDEX AND MAINTAINED FORMATTING
-    //I will output into 5 letter blocks if Retain Formatting isn't checked
-    //If it is checked, i need to find that function that controls the output
+    //Get the smallest letter and its index from keywordList
+    var min = Math.min(...outputList);
+    var minIndex = outputList.indexOf(min);
+    var keyIndex = minIndex;
+    //Put the ciphertext of the letter, including its duplicates
+    while(minIndex != -1){
+        //We pull from that column and add to our ciphertext
+        for(var row = 0; row < eArray.length; row++){
+            cipherText += eArray[row][keyIndex];
+        }
+        //We splice to remove element and redifine the minimums
+        outputList.splice(minIndex, 1);
+        min = Math.min(...outputList);
+        keyIndex = keywordList.indexOf(min);
+        minIndex = outputList.indexOf(min);
+    }
+    return cipherText;
+    //Return single string that is output
 }
 
 //This function takes the deciphering array and puts the plain text in the Output
 function outputPlaintext(keywordList, dArray){
-    var retainFormatting = document.getElementById('formatCheckbox').checked;
     //Same notes as outputCiphertext() above
+
 }
 
 //This function uses Tabulator to create the table that will be shown
@@ -102,20 +129,21 @@ function columnarEncipher(input, keyword){
     var eArray = createEncipherArray(input, keyword);
     var table = buildTable(); //I'll need to load the data into the modal, but in reality the Output will have the ciphered message.
     var keywordList = keywordOrder(keyword);
-    //outputCiphertext(keywordList, eArray);
+    return outputCiphertext(keywordList, eArray);
 
     //TESTING AREA BELOW 
-    $("#cipherModal").modal();
-    table.redraw();
+    //$("#cipherModal").modal();
+    //table.redraw();
 }
 
 //This function handles the deciphering process, remember in by columns and out by rows
 function columnarDecipher(input, keyword){
     $("#modalHeader").text("Decrypting");
-    //var dArray = createDecipherArray(input, keyword);
+    var dArray = createDecipherArray(input, keyword);
+    console.log(dArray);
     //I need to buildTable to load the data
     //var keywordList = keywordOrder(keyword);
-    //outputPlaintext(keywordList, dArray);
+    //return outputPlaintext(keywordList, dArray);
     
 }
 
