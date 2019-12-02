@@ -129,6 +129,7 @@ function columnarEncipher(input, keyword){
     var eArray = createEncipherArray(input, keyword);
     var table = buildTable(); //I'll need to load the data into the modal, but in reality the Output will have the ciphered message.
     var keywordList = keywordOrder(keyword);
+    document.getElementsByClassName('tabulator-col')[0].click();
     return outputCiphertext(keywordList, eArray);
 
     //TESTING AREA BELOW 
@@ -151,7 +152,9 @@ function columnarDecipher(input, keyword){
 function openModal(){
     $("#modalHeader").text("Guess Keyword Length:");
     $("#keywordSize").removeClass("d-none");
-    $("#columnarTable").show();
+
+    //Javascript Callback that will make the tabulator be formatted properly
+    $("#cipherModal").show(function(){document.getElementsByClassName('tabulator-col')[0].click()});
     //input = getInput();
     //input = input.replace(/\s/ig, '');
 
