@@ -53,6 +53,14 @@ function encipher_Clicked() {
         break;
       case "Columnar Transposition":
         var keyword = document.getElementById("transposition").value;
+        //Check the keyword and remove spaces or display error message
+        if (keyword.length > 0) {
+          keyword = keyword.replace(/[^A-Z0-9]/ig, '');
+          $("#inputWarning").fadeOut();
+        }else{
+          $("#inputWarning").fadeIn();
+          document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
+        }
         if (keyword != "") {
           if (input != "") {
             //Remove spaces
@@ -105,15 +113,23 @@ function decipher_Clicked() {
           day = "Thursday";
           break;
         case "Columnar Transposition":
+          var keyword = document.getElementById("transposition").value;
+          //Check the keyword and remove spaces or display error message
+          if (keyword.length > 0) {
+            keyword = keyword.replace(/[^A-Z0-9]/ig, '');
+            $("#inputWarning").fadeOut();
+          }else{
+            $("#inputWarning").fadeIn();
+            document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
+          }
           if (keyword != "") {
             if (input != "") {
               //Remove spaces
               input = input.replace(/\s/ig, '');
-              //Make everything lowercase, should i do this somewhere else??
               input = input.toLowerCase();
               keyword = keyword.toLowerCase();
               //Set the function below equal to output
-              columnarDecipher(input, keyword);
+              output = columnarDecipher(input, keyword);
             }
           }
           break;
