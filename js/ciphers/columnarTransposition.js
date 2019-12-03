@@ -6,21 +6,42 @@ To Do:
 */
 
 //This function returns an list that is the number order of the keyword based on Unicode
-function keywordOrder(keyword){
-    var arraySize = keyword.length;
-    var keywordList = [];
+function orderKeyword(keyword){
+    var arraySize = keyword.length, keywordList = [], counter = 0;
     for(var i = 0; i < arraySize; i++){
         keywordList[i] = keyword.charCodeAt(i);
     }
-    return keywordList;
+
+    //This will output a list of the column order using counter
+    var keywordOrdered = [...keywordList];
+    var min = Math.min(...keywordList);
+    while(counter < arraySize){
+        //Check if min exists in keywordList
+        while(keywordList.indexOf(min) === -1){
+            min++;
+        }
+
+        //Place the column order of the current min item
+        var minIndex = keywordList.indexOf(min);
+        keywordOrdered[minIndex] = counter++;
+
+        //Check for duplicates
+        var dup = keywordList.indexOf(min, minIndex + 1);
+        while(dup != -1){
+            keywordOrdered[dup] = counter++;
+            dup = keywordList.indexOf(min, dup + 1);
+        }
+        //Increment the minimum
+        min++;
+    }
+    return keywordOrdered;
 }
 
 //This function puts the input into a 2D array based on keyword length
 function createEncipherArray(input, keyword){
-    //Need lengths to determine array dimensions, h is a counter to go through input characters
-    total = input.length;
-    columns = keyword.length;
-    var h = 0;
+    //Need lengths to determine array dimensions
+    let total = input.length;
+    let columns = keyword.length;
 
     //We divide Input length by Keyword length to know the number of rows we need
     var rows = Math.ceil(total / columns);
@@ -32,11 +53,12 @@ function createEncipherArray(input, keyword){
     }
     //Think of 'i' as the row and 'j' as the column
     //The loops move from left to right, then down to the next row
-    var character;
+    //h is a counter to go through input characters
+    var character, h = 0;
     for (var i = 0; i < rows; i++){
         for (var j = 0; j < columns; j++){
             character = input[h++];
-            //If the input doesn't fit perfectly, we just use spaces
+            //If the input doesn't fill in all spaces, we use 'x' for padding 
             if (typeof(character) == 'undefined'){
                 eArray[i][j] = "x";
             }
@@ -49,12 +71,11 @@ function createEncipherArray(input, keyword){
 }
 
 //This function puts the input into a 2D array based on the keyword
-function createDecipherArray(input, keyword){
-    //Need lengths to determine array dimensions, h is a counter to go through input characters
-    total = input.length;
-    columns = keyword.length;
-    var h = 0;
-
+function createDecipherArray(input, keywordList){
+    //Need lengths to determine array dimensions
+    let total = input.length;
+    let columns = keywordList.length;
+    
     //We divide Input length by Keyword length to know the number of rows we need
     var rows = Math.ceil(total / columns);
 
@@ -64,43 +85,52 @@ function createDecipherArray(input, keyword){
         dArray[i] = []; //This makes it 2D
     }
 
+    //Need to add dummy data so array indexes can be referenced later, or else undefined error
+    for(var i = 0; i < rows; i++){
+        for(var j = 0; j < columns; j++){
+            dArray[i][j] = "";
+        }
+    }
+
+    //We select a column based on keywordList and fill in characters moving down each row
+    //h is a counter to go through input characters
+    const max = Math.max(...keywordList);
+    var character, h = 0;
+    for(var column = 0; column <= max; column ++){
+        for(var row = 0; row < dArray.length; row++){
+            character = input[h++];
+            //Notice how we go down each row and pick the index position of what keywordList item we are on
+             dArray[row][keywordList.indexOf(column)] = character;
+        }
+    }
     return dArray;
 }
 
-//This function takes the enciphering array and puts the cipher text in the Output
+//This function takes the enciphering array and returns ciphertext
 function outputCiphertext(keywordList, eArray){
-    var cipherText = "";
-    var outputList = [...keywordList];
-    //Need to find smallest item in keywordList using Math.min(...array)
-        //Use indexOf(element) to find the keyword letter
-        //then indexOf(element, elementIndex) to search after that index
-        //when it returns -1, you know there aren't others
-    //remember splice and indexOf checks the current index before moving
+    var cipherText = "", max = Math.max(...keywordList);
 
-    //Get the smallest letter and its index from keywordList
-    var min = Math.min(...outputList);
-    var minIndex = outputList.indexOf(min);
-    var keyIndex = minIndex;
-    //Put the ciphertext of the letter, including its duplicates
-    while(minIndex != -1){
-        //We pull from that column and add to our ciphertext
+    //We pull from that column and add to our ciphertext
+    for(var column = 0; column <= max; column ++){
         for(var row = 0; row < eArray.length; row++){
-            cipherText += eArray[row][keyIndex];
+            //Notice how we go down each row and pick the index position of what keywordList item we are on
+            cipherText += eArray[row][keywordList.indexOf(column)];
         }
-        //We splice to remove element and redifine the minimums
-        outputList.splice(minIndex, 1);
-        min = Math.min(...outputList);
-        keyIndex = keywordList.indexOf(min);
-        minIndex = outputList.indexOf(min);
     }
     return cipherText;
-    //Return single string that is output
 }
 
-//This function takes the deciphering array and puts the plain text in the Output
+//This function takes the deciphering array and returns the plaintext
 function outputPlaintext(keywordList, dArray){
-    //Same notes as outputCiphertext() above
-
+    var plainText = "", max = Math.max(...keywordList);
+    
+    //Remember, out by rows so just read through the array
+    for(var row = 0; row < dArray.length; row++){
+        for(var column = 0; column < keywordList.length; column++){
+            plainText += dArray[row][column];
+        }
+    }
+    return plainText;
 }
 
 //This function uses Tabulator to create the table that will be shown
@@ -127,32 +157,27 @@ function buildTable(){
 function columnarEncipher(input, keyword){
     $("#modalHeader").text("Encrypting");
     var eArray = createEncipherArray(input, keyword);
-    var table = buildTable(); //I'll need to load the data into the modal, but in reality the Output will have the ciphered message.
-    var keywordList = keywordOrder(keyword);
+    var keywordList = orderKeyword(keyword);
+    buildTable();
     document.getElementsByClassName('tabulator-col')[0].click();
     return outputCiphertext(keywordList, eArray);
-
-    //TESTING AREA BELOW 
-    //$("#cipherModal").modal();
-    //table.redraw();
 }
 
 //This function handles the deciphering process, remember in by columns and out by rows
 function columnarDecipher(input, keyword){
     $("#modalHeader").text("Decrypting");
-    var dArray = createDecipherArray(input, keyword);
-    console.log(dArray);
-    //I need to buildTable to load the data
-    //var keywordList = keywordOrder(keyword);
-    //return outputPlaintext(keywordList, dArray);
-    
+    var keywordList = orderKeyword(keyword);
+    var dArray = createDecipherArray(input, keywordList);
+    buildTable();
+    document.getElementsByClassName('tabulator-col')[0].click();
+    return outputPlaintext(keywordList, dArray);
 }
 
 //This function handles the button Open Modal onclick event when user wants to see the table 
 function openModal(){
     $("#modalHeader").text("Guess Keyword Length:");
     $("#keywordSize").removeClass("d-none");
-
+    buildTable();
     //Javascript Callback that will make the tabulator be formatted properly
     $("#cipherModal").show(function(){document.getElementsByClassName('tabulator-col')[0].click()});
     //input = getInput();
