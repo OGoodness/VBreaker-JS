@@ -308,9 +308,8 @@ function tableCreate(table = [[1, 2, 3]]) {
 function hideInputs(){
     $('#caesarCipher').addClass("d-none");
     $('#multiplicativeCipher').addClass("d-none");
-    $('#transpositionCipher').addClass("d-none");
+    $('#keywordCipher').addClass("d-none");
     $('#btnModal').addClass("d-none");
-    $('#vigenere').addClass("d-none");
     $('#hillCipher').addClass("d-none");
 }
 
@@ -324,6 +323,8 @@ function hideInputs(){
 function cipherChange(){
     hideInputs();
     switch (document.getElementById('cipherSelect').value){
+        case 'ADFGVX':
+            break;
         case 'Affine':
             $('#caesarCipher').removeClass("d-none");
             $('#multiplicativeCipher').removeClass("d-none");
@@ -334,7 +335,7 @@ function cipherChange(){
             $('#caesarCipher').removeClass("d-none");
             break;
         case 'Columnar Transposition':
-            $('#transpositionCipher').removeClass("d-none");
+            $('#keywordCipher').removeClass("d-none");
             $('#btnModal').removeClass("d-none");
             break;
         case 'Hill':

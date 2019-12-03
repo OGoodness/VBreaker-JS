@@ -52,26 +52,17 @@ function encipher_Clicked() {
         day = "Thursday";
         break;
       case "Columnar Transposition":
-        var keyword = document.getElementById("transposition").value;
-        //Check the keyword and remove spaces or display error message
-        if (keyword.length > 0) {
-          keyword = keyword.replace(/[^A-Z0-9]/ig, '');
-          $("#inputWarning").fadeOut();
-        }else{
-          $("#inputWarning").fadeIn();
-          document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
-        }
+        var keyword = getKeyword();
         if (keyword != "") {
           if (input != "") {
             //Remove spaces
             input = input.replace(/\s/ig, '');
-            input = input.toLowerCase();
-            keyword = keyword.toLowerCase();
-            //Set the function below equal to output
-            output = columnarEncipher(input, keyword);
+            columnarEncipher(input, keyword);
           }
         }
         break;
+      case "ADFGVX":
+        day = "Saturday";
       default:
 
     }
@@ -113,26 +104,16 @@ function decipher_Clicked() {
           day = "Thursday";
           break;
         case "Columnar Transposition":
-          var keyword = document.getElementById("transposition").value;
-          //Check the keyword and remove spaces or display error message
-          if (keyword.length > 0) {
-            keyword = keyword.replace(/[^A-Z0-9]/ig, '');
-            $("#inputWarning").fadeOut();
-          }else{
-            $("#inputWarning").fadeIn();
-            document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
-          }
           if (keyword != "") {
             if (input != "") {
               //Remove spaces
               input = input.replace(/\s/ig, '');
-              input = input.toLowerCase();
-              keyword = keyword.toLowerCase();
-              //Set the function below equal to output
-              output = columnarDecipher(input, keyword);
+              columnarDecipher(input, keyword);
             }
           }
           break;
+        case "ADFGVX":
+          day = "Saturday";
         default:
             
     }
@@ -151,12 +132,6 @@ function clear_Clicked() {
 
     //Hide IOC
     $("#ioc").fadeOut();
-}
-
-function swapInputOutput() {
-    var temp = $('#input')[0].value;
-    $('#input')[0].value = $('#output')[0].value;
-    $('#output')[0].value = temp;
 }
 
 //Shifter Function
