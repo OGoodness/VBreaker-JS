@@ -228,7 +228,7 @@ function hideShifterMenu() {
 
 //Input Checking Functions
 function getKeyword() {
-    var keyword = document.getElementById("vigenere").value;
+    var keyword = document.getElementById("keyword").value;
     if (keyword.length > 0) {
         
         keyword = keyword.replace(/[^A-Z0-9]/ig, '');
@@ -308,9 +308,9 @@ function tableCreate(table = [[1, 2, 3]]) {
 function hideInputs(){
     $('#caesarCipher').addClass("d-none");
     $('#multiplicativeCipher').addClass("d-none");
-    $('#transpositionCipher').addClass("d-none");
+    $('#vigenereCipher').addClass("d-none");
+    $('#keywordCipher').addClass("d-none");
     $('#btnModal').addClass("d-none");
-    $('#vigenere').addClass("d-none");
     $('#hillCipher').addClass("d-none");
 }
 
@@ -334,7 +334,8 @@ function cipherChange(){
             $('#caesarCipher').removeClass("d-none");
             break;
         case 'Columnar Transposition':
-            $('#transpositionCipher').removeClass("d-none");
+            $("#keywordCipher").find('label').text("Transposition:");
+            $('#keywordCipher').removeClass("d-none");
             $('#btnModal').removeClass("d-none");
             break;
         case 'Hill':

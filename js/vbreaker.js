@@ -41,10 +41,10 @@ function encipher_Clicked() {
         output = affine(multiShift, caesarShift, input);
         break;
       case "Vigenere":
+        var keyword = document.getElementById("vigenere").value;
         if (keyword != "") {
             if (input != "") {
-              //encipher does not exist, create it in keyword.js
-                vigenere(input, keyword, true);
+              vigenere(input, keyword, true);
             }
         }
         break;
@@ -52,22 +52,13 @@ function encipher_Clicked() {
         day = "Thursday";
         break;
       case "Columnar Transposition":
-        var keyword = document.getElementById("transposition").value;
-        //Check the keyword and remove spaces or display error message
-        if (keyword.length > 0) {
-          keyword = keyword.replace(/[^A-Z0-9]/ig, '');
-          $("#inputWarning").fadeOut();
-        }else{
-          $("#inputWarning").fadeIn();
-          document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
-        }
+        var keyword = getKeyword();
         if (keyword != "") {
           if (input != "") {
             //Remove spaces
             input = input.replace(/\s/ig, '');
             input = input.toLowerCase();
             keyword = keyword.toLowerCase();
-            //Set the function below equal to output
             output = columnarEncipher(input, keyword);
           }
         }
@@ -81,7 +72,6 @@ function encipher_Clicked() {
 function decipher_Clicked() {
     var retainFormatting = document.getElementById('formatCheckbox').checked;
     var cipher = document.getElementById("cipherSelect");
-    var keyword = getKeyword();
     var unformatted_input, input = getInput();
     if (!retainFormatting){
       //Will need to change this for ciphers that have numbers
@@ -102,10 +92,10 @@ function decipher_Clicked() {
             output = affine(multiShift, caesarShift, input, "decrypt");
           break;
         case "Vigenere":
+          var keyword = document.getElementById("vigenere").value;
           if (keyword != "") {
             if (input != "") {
-              //decipher does not exist, create it in keyword.js
-                vigenere(input, keyword, false);
+              vigenere(input, keyword, false);
             }
           }
           break;
@@ -113,22 +103,13 @@ function decipher_Clicked() {
           day = "Thursday";
           break;
         case "Columnar Transposition":
-          var keyword = document.getElementById("transposition").value;
-          //Check the keyword and remove spaces or display error message
-          if (keyword.length > 0) {
-            keyword = keyword.replace(/[^A-Z0-9]/ig, '');
-            $("#inputWarning").fadeOut();
-          }else{
-            $("#inputWarning").fadeIn();
-            document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
-          }
+          var keyword = getKeyword();
           if (keyword != "") {
             if (input != "") {
               //Remove spaces
               input = input.replace(/\s/ig, '');
               input = input.toLowerCase();
               keyword = keyword.toLowerCase();
-              //Set the function below equal to output
               output = columnarDecipher(input, keyword);
             }
           }
