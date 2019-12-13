@@ -46,7 +46,8 @@ function encipher_Clicked() {
             if (input != "") {
               vigenere(input, keyword, true);
             }
-            break;
+        }
+        break;
         case "Hill":
             var key00 = $('#hillKey00').val();
             var key01 = $('#hillKey01').val();
@@ -101,6 +102,7 @@ function decipher_Clicked() {
             if (input != "") {
               vigenere(input, keyword, false);
             }
+          }
             break;
         case "Hill":
             var key00 = $('#hillKey00').val();
