@@ -15,7 +15,7 @@
 // key = the key to alter the alphabet
 // alphabet = The alphabet to use if not A-Z
 //ALPHABET is out of order because Christensen says a starts at 1
-function affine(mult, inc, text, alphabet = 'ZABCDEFGHIJKLMNOPQRSTUVWXY', isDecrypt = "decrypt")
+function affine(mult, inc, text, isDecrypt = "encrypt", alphabet = 'ZABCDEFGHIJKLMNOPQRSTUVWXY')
 {
     var output = "";
     
@@ -24,8 +24,8 @@ function affine(mult, inc, text, alphabet = 'ZABCDEFGHIJKLMNOPQRSTUVWXY', isDecr
     
     mult = mult * 1;
     inc = inc * 1;
-    
-    if (isDecrypt < 0) {
+    console.log("isDecrypt "+isDecrypt);
+    if (isDecrypt == "decrypt") {
        var i = 1;
        while ((mult * i) % 26 != 1) {
            i += 2;
