@@ -19,8 +19,8 @@ function hillEncrypt(input, keys) {
         keys[i] = keys[i] % 26;
 
     for (i = 0; i < plaintext.length; i += 2) {
-        output += String.fromCharCode((keys[0] * (plaintext.charCodeAt(i) - 97) + keys[1] * (plaintext.charCodeAt(i + 1) - 97)) % 26 + 97);
-        output += String.fromCharCode((keys[2] * (plaintext.charCodeAt(i) - 97) + keys[3] * (plaintext.charCodeAt(i + 1) - 97)) % 26 + 97);
+        output += String.fromCharCode((keys[0] * (plaintext.charCodeAt(i) - 96) + keys[1] * (plaintext.charCodeAt(i + 1) - 96)) % 26 + 96);
+        output += String.fromCharCode((keys[2] * (plaintext.charCodeAt(i) - 96) + keys[3] * (plaintext.charCodeAt(i + 1) - 96)) % 26 + 96);
     }
     return output;
 }
@@ -65,8 +65,8 @@ function hillDecrypt(input, keys) {
     }
     var plaintext = "";
     for (i = 0; i < ciphertext.length; i += 2) {
-        plaintext += String.fromCharCode((ikeys[0] * (ciphertext.charCodeAt(i) - 97) + ikeys[1] * (ciphertext.charCodeAt(i + 1) - 97)) % 26 + 97);
-        plaintext += String.fromCharCode((ikeys[2] * (ciphertext.charCodeAt(i) - 97) + ikeys[3] * (ciphertext.charCodeAt(i + 1) - 97)) % 26 + 97);
+        plaintext += String.fromCharCode((ikeys[0] * (ciphertext.charCodeAt(i) - 96) + ikeys[1] * (ciphertext.charCodeAt(i + 1) - 96)) % 26 + 96);
+        plaintext += String.fromCharCode((ikeys[2] * (ciphertext.charCodeAt(i) - 96) + ikeys[3] * (ciphertext.charCodeAt(i + 1) - 96)) % 26 + 96);
     }
     
     return plaintext;
