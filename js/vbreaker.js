@@ -202,5 +202,5 @@ function formatAndDisplayCipherText(input, output, retainFormatting){
         console.log(output);
         output = output.replace(/(.{5})/g,"$1 ");
     }
-    document.getElementById("output").value = output;
+    document.getElementById("output").value = output.toUpperCase();
 }

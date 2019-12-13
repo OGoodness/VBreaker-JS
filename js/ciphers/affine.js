@@ -24,7 +24,6 @@ function affine(mult, inc, text, isDecrypt = "encrypt", alphabet = 'ZABCDEFGHIJK
     
     mult = mult * 1;
     inc = inc * 1;
-    console.log("isDecrypt "+isDecrypt);
     if (isDecrypt == "decrypt") {
        var i = 1;
        while ((mult * i) % 26 != 1) {

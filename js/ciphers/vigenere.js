@@ -3,7 +3,6 @@ function vigenere(input, keyword, direction) {
     var output = "";
     var keyIndex = 0;
     var retainFormatting = document.getElementById('formatCheckbox').checked;
-    var splitIndex = 0;
     for (var x = 0; x < input.length; x++) {
         var c = input.charAt(x);
         if ((!/[^a-zA-Z]/.test(c))) {
@@ -20,25 +19,15 @@ function vigenere(input, keyword, direction) {
                     output += shiftLetter(c, -1 * getShiftAmount(keyword.charAt(keyIndex))).toUpperCase();
                 }
             }
-            splitIndex++;
             keyIndex++;
             if (keyIndex >= keyword.length) keyIndex = 0;
         } else {
             if (retainFormatting) {
                 output += c;
-                splitIndex++;
             } else {
                 if ((/^\d+$/.test(c))) {
                     output += c;
-                    splitIndex++;
                 }
-            }
-        }
-
-        if (!retainFormatting) {
-            if (splitIndex == 5) {
-                splitIndex = 0;
-                output += " ";
             }
         }
     }
