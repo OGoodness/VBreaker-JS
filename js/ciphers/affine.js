@@ -14,7 +14,7 @@
 // inc = how far to shift the letters.
 // key = the key to alter the alphabet
 // alphabet = The alphabet to use if not A-Z
-//ALPHABET is out of order because Christiansen says a starts at 1
+//ALPHABET is out of order because Christensen says a starts at 1
 function affine(mult, inc, text, alphabet = 'ZABCDEFGHIJKLMNOPQRSTUVWXY', isDecrypt = "decrypt")
 {
     var output = "";

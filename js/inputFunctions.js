@@ -311,6 +311,7 @@ function hideInputs(){
     $('#vigenereCipher').addClass("d-none");
     $('#keywordCipher').addClass("d-none");
     $('#btnModal').addClass("d-none");
+    $('#vigenereCipher').addClass("d-none");
     $('#hillCipher').addClass("d-none");
 }
 
@@ -319,6 +320,30 @@ function hideInputs(){
      hideInputs();
      $('#caesarCipher').removeClass("d-none");
  });
+
+// Restricts input for the given textbox to the given inputFilter function.
+function setInputFilter(textbox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+        textbox.addEventListener(event, function() {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+        });
+    });
+}
+/*
+Is used like:
+            setInputFilter(document.getElementById("elementId"), function(value) {
+                return /^\d*\.?\d*$/.test(value); //REGEX you want to filter by
+            });
+ */
 
 //When chose item in dropdown list changes, only show inputs applicable
 function cipherChange(){
@@ -340,6 +365,29 @@ function cipherChange(){
             break;
         case 'Hill':
             $('#hillCipher').removeClass("d-none");
+            setInputFilter(document.getElementById("hillKey00"), function(value) {
+                return /^\d*\.?\d*$/.test(value);
+            });
+            setInputFilter(document.getElementById("hillKey01"), function(value) {
+                return /^\d*\.?\d*$/.test(value);
+            });
+            setInputFilter(document.getElementById("hillKey10"), function(value) {
+                return /^\d*\.?\d*$/.test(value);
+            });
+            setInputFilter(document.getElementById("hillKey11"), function(value) {
+                return /^\d*\.?\d*$/.test(value);
+            });
+
+            $("[id^='hillKey']").keyup(function() {
+                var key00 = $('#hillKey00').val();
+                var key01 = $('#hillKey01').val();
+                var key10 = $('#hillKey10').val();
+                var key11 = $('#hillKey11').val();
+
+                if (key00 != '' && key01 != '' && key10 != '' && key11 != '') {
+                    $('#hillDeterminate').text((key00 * key11 - key01 * key10) % 26);
+                }
+            });
             break;
         case 'Vigenere':
             $('#vigenereCipher').removeClass("d-none");

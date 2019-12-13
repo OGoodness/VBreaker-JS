@@ -21,8 +21,8 @@ function encipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
     var unformatted_input, input = getInput();
     if (!retainFormatting){
-      //Will need to change this for ciphers that have numbers
-      input = input.replace(/[^a-zA-Z]/g, "");
+        //Will need to change this for ciphers that have numbers
+        input = input.replace(/[^a-zA-Z]/g, "");
     }
     console.log("Encrypt");
     var output = "";
@@ -46,11 +46,15 @@ function encipher_Clicked() {
             if (input != "") {
               vigenere(input, keyword, true);
             }
-        }
-        break;
-      case "Hill":
-        day = "Thursday";
-        break;
+            break;
+        case "Hill":
+            var key00 = $('#hillKey00').val();
+            var key01 = $('#hillKey01').val();
+            var key10 = $('#hillKey10').val();
+            var key11 = $('#hillKey11').val();
+            var hillValue = $('#input').val();
+            output = hillEncrypt(hillValue, key00 + " " + key01 + " " + key10 + " " + key11);
+            break;
       case "Columnar Transposition":
         var keyword = getKeyword();
         if (keyword != "") {
@@ -74,34 +78,39 @@ function decipher_Clicked() {
     var cipher = document.getElementById("cipherSelect");
     var unformatted_input, input = getInput();
     if (!retainFormatting){
-      //Will need to change this for ciphers that have numbers
-      input = input.replace(/[^a-zA-Z]/g, "");
+        //Will need to change this for ciphers that have numbers
+        input = input.replace(/[^a-zA-Z]/g, "");
     }
     switch (cipher.value) {
         case "Caesar":
             var caesarShift = document.getElementById("caesar-shift").value;
             var output = caeserCipher(caesarShift, input, "decrypt");
-          break;
+            break;
         case "Multiplicative":
             var multiShift = document.getElementById("multiplicative").value;
             output = affine(multiShift, caesarShift, input, "decrypt");
-          break;
+            break;
         case "Affine":
             var caesarShift = document.getElementById("caesar-shift").value;
             var multiShift = document.getElementById("multiplicative").value;
             output = affine(multiShift, caesarShift, input, "decrypt");
-          break;
+            break;
         case "Vigenere":
           var keyword = document.getElementById("vigenere").value;
           if (keyword != "") {
             if (input != "") {
               vigenere(input, keyword, false);
             }
-          }
-          break;
+            break;
         case "Hill":
-          day = "Thursday";
-          break;
+            var key00 = $('#hillKey00').val();
+            var key01 = $('#hillKey01').val();
+            var key10 = $('#hillKey10').val();
+            var key11 = $('#hillKey11').val();
+            var hillValue = $('#output').val();
+            var hillValue = $('#input').val();
+            output = hillDecrypt(hillValue, key00 + " " + key01 + " " + key10 + " " + key11);
+            break;
         case "Columnar Transposition":
           var keyword = getKeyword();
           if (keyword != "") {
@@ -115,7 +124,7 @@ function decipher_Clicked() {
           }
           break;
         default:
-            
+
     }
     console.log(output);
     formatAndDisplayCipherText(input, output, retainFormatting);
@@ -183,11 +192,11 @@ function shiftLetter(input, amount) {
 
 //Formate cipher/plain text when you output. Unknown if should handle format in cipher or here
 function formatAndDisplayCipherText(input, output, retainFormatting){
-  if (retainFormatting) {
-    console.log("Determine if need to change formatting: " + retainFormatting);
-  }else{
-    console.log(output);
-    output = output.replace(/(.{5})/g,"$1 ");
-  }
-  document.getElementById("output").value = output;
+    if (retainFormatting) {
+        console.log("Determine if need to change formatting: " + retainFormatting);
+    }else{
+        console.log(output);
+        output = output.replace(/(.{5})/g,"$1 ");
+    }
+    document.getElementById("output").value = output;
 }
