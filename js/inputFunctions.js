@@ -226,12 +226,11 @@ function hideShifterMenu() {
 }
 
 
-
-
 //Input Checking Functions
 function getKeyword() {
-    var keyword = document.getElementById("keyword").value;    
+    var keyword = document.getElementById("keyword").value;
     if (keyword.length > 0) {
+        
         keyword = keyword.replace(/[^A-Z0-9]/ig, '');
         $("#inputWarning").fadeOut();
         return keyword.toUpperCase();
@@ -240,6 +239,7 @@ function getKeyword() {
     document.getElementById("inputWarning").innerHTML = "Keyword must be provided and only consist of characters ranging from A-Z.";
     return "";
 }
+//Get Input from the input cipher/plain text
 function getInput() {
     var input = document.getElementById("input").value;
     if (input.length > 0) {
@@ -301,35 +301,86 @@ function tableCreate(table = [[1, 2, 3]]) {
       tbdy.appendChild(tr);
     }
     tbl.appendChild(tbdy);
-    body.appendChild(tbl)
+    body.appendChild(tbl);
   }
 
+//Hides inputs
+function hideInputs(){
+    $('#caesarCipher').addClass("d-none");
+    $('#multiplicativeCipher').addClass("d-none");
+    $('#vigenereCipher').addClass("d-none");
+    $('#keywordCipher').addClass("d-none");
+    $('#btnModal').addClass("d-none");
+    $('#vigenereCipher').addClass("d-none");
+    $('#hillCipher').addClass("d-none");
+}
 
-//Case Statement for encryption
-$(document).ready(function(){
-    $('#cipherSelect li').on('click', function() {
-        $('#selected').text(this.getAttribute("value"));
-        switch (this.getAttribute("value")){
-            case 'ADFGVX':
-                break;
-            case 'Affine':
-                break;
-            case 'AutoKey':
-                break;
-            case 'Caesar':
-                break;
-            case 'Columnar Transposition':
-                tableCreate();
-                $("#cipherModal").modal('show');
-                break;
-            case 'Hill':
-                break;
-            case 'Keyword':
-                break;
-            case 'Playfair':
-                break;
+//When page loads, it hides inputs, Caesar Cipher is default selection
+ $(document).ready(function(){
+     hideInputs();
+     $('#caesarCipher').removeClass("d-none");
+ });
 
-      }
-
+// Restricts input for the given textbox to the given inputFilter function.
+function setInputFilter(textbox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+        textbox.addEventListener(event, function() {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+        });
     });
-});
+}
+/*
+Is used like:
+            setInputFilter(document.getElementById("elementId"), function(value) {
+                return /^\d*\.?\d*$/.test(value); //REGEX you want to filter by
+            });
+ */
+
+//When chose item in dropdown list changes, only show inputs applicable
+function cipherChange(){
+    hideInputs();
+    switch (document.getElementById('cipherSelect').value){
+        case 'Affine':
+            $('#caesarCipher').removeClass("d-none");
+            $('#multiplicativeCipher').removeClass("d-none");
+            break;
+        case 'AutoKey':
+            break;
+        case 'Caesar':
+            $('#caesarCipher').removeClass("d-none");
+            break;
+        case 'Columnar Transposition':
+            $("#keywordCipher").find('label').text("Transposition:");
+            $('#keywordCipher').removeClass("d-none");
+            $('#btnModal').removeClass("d-none");
+            break;
+        case 'Hill':
+            $('#hillCipher').removeClass("d-none");
+            $("[id^='hillKey']").keyup(function() {
+                var key00 = $('#hillKey00').val();
+                var key01 = $('#hillKey01').val();
+                var key10 = $('#hillKey10').val();
+                var key11 = $('#hillKey11').val();
+
+                if (key00 != '' && key01 != '' && key10 != '' && key11 != '') {
+                    $('#hillDeterminate').text((key00 * key11 - key01 * key10) % 26);
+                }
+            });
+            break;
+        case 'Vigenere':
+            $('#vigenereCipher').removeClass("d-none");
+            break;
+        case 'Multiplicative':
+            $('#multiplicativeCipher').removeClass("d-none");
+            break;
+    }
+}
