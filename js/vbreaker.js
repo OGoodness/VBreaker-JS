@@ -20,6 +20,7 @@ function encipher_Clicked() {
     var retainFormatting = document.getElementById('formatCheckbox').checked;
     var cipher = document.getElementById("cipherSelect");
     var unformatted_input, input = getInput();
+    var output = '';
     if (!retainFormatting){
         //Will need to change this for ciphers that have numbers
         input = input.replace(/[^a-zA-Z]/g, "");
@@ -29,7 +30,7 @@ function encipher_Clicked() {
     switch (cipher.value) {
       case "Caesar":
         var caesarShift = document.getElementById("caesar-shift").value;
-        var output = caeserCipher(caesarShift, input);
+        output = caeserCipher(caesarShift, input);
         break;
       case "Multiplicative":
         var multiShift = document.getElementById("multiplicative").value;
@@ -44,7 +45,7 @@ function encipher_Clicked() {
         var keyword = document.getElementById("vigenere").value;
         if (keyword != "") {
             if (input != "") {
-              vigenere(input, keyword, true);
+              output = vigenere(input, keyword, true);
             }
         }
         break;
@@ -78,6 +79,7 @@ function decipher_Clicked() {
     var retainFormatting = document.getElementById('formatCheckbox').checked;
     var cipher = document.getElementById("cipherSelect");
     var unformatted_input, input = getInput();
+    var output = "";
     if (!retainFormatting){
         //Will need to change this for ciphers that have numbers
         input = input.replace(/[^a-zA-Z]/g, "");
@@ -85,7 +87,7 @@ function decipher_Clicked() {
     switch (cipher.value) {
         case "Caesar":
             var caesarShift = document.getElementById("caesar-shift").value;
-            var output = caeserCipher(caesarShift, input, "decrypt");
+            output = caeserCipher(caesarShift, input, "decrypt");
             break;
         case "Multiplicative":
             var multiShift = document.getElementById("multiplicative").value;
@@ -100,7 +102,7 @@ function decipher_Clicked() {
           var keyword = document.getElementById("vigenere").value;
           if (keyword != "") {
             if (input != "") {
-              vigenere(input, keyword, false);
+              output = vigenere(input, keyword, false);
             }
           }
             break;

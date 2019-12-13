@@ -13,13 +13,11 @@ function vigenere(input, keyword, direction) {
                 } else {
                     output += shiftLetter(c, -1 * getShiftAmount(keyword.charAt(keyIndex)));
                 }
-            }
-            else {
+            } else {
                 if (direction) {
                     output += shiftLetter(c, getShiftAmount(keyword.charAt(keyIndex))).toUpperCase();
-                }
-                else {
-                        output += shiftLetter(c, -1 * getShiftAmount(keyword.charAt(keyIndex))).toUpperCase();
+                } else {
+                    output += shiftLetter(c, -1 * getShiftAmount(keyword.charAt(keyIndex))).toUpperCase();
                 }
             }
             splitIndex++;
@@ -29,8 +27,7 @@ function vigenere(input, keyword, direction) {
             if (retainFormatting) {
                 output += c;
                 splitIndex++;
-            }
-            else {
+            } else {
                 if ((/^\d+$/.test(c))) {
                     output += c;
                     splitIndex++;
@@ -45,5 +42,5 @@ function vigenere(input, keyword, direction) {
             }
         }
     }
-    document.getElementById("output").value = output;
+    return output;
 }
