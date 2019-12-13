@@ -365,19 +365,6 @@ function cipherChange(){
             break;
         case 'Hill':
             $('#hillCipher').removeClass("d-none");
-            setInputFilter(document.getElementById("hillKey00"), function(value) {
-                return /^\d*\.?\d*$/.test(value);
-            });
-            setInputFilter(document.getElementById("hillKey01"), function(value) {
-                return /^\d*\.?\d*$/.test(value);
-            });
-            setInputFilter(document.getElementById("hillKey10"), function(value) {
-                return /^\d*\.?\d*$/.test(value);
-            });
-            setInputFilter(document.getElementById("hillKey11"), function(value) {
-                return /^\d*\.?\d*$/.test(value);
-            });
-
             $("[id^='hillKey']").keyup(function() {
                 var key00 = $('#hillKey00').val();
                 var key01 = $('#hillKey01').val();
