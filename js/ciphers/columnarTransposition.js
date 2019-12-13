@@ -1,17 +1,9 @@
-/*
-To Do:
---TABULATOR PROBLEMS
-    --Formating of table is all screwed up when the modal opens
-    --Fix table not showing on closing the modal from Open Modal event
-*/
-
 //This function returns an list that is the number order of the keyword based on Unicode
 function orderKeyword(keyword){
     var arraySize = keyword.length, keywordList = [], counter = 0;
     for(var i = 0; i < arraySize; i++){
         keywordList[i] = keyword.charCodeAt(i);
     }
-
     //This will output a list of the column order using counter
     var keywordOrdered = [...keywordList];
     var min = Math.min(...keywordList);
@@ -100,7 +92,11 @@ function createDecipherArray(input, keywordList){
         for(var row = 0; row < dArray.length; row++){
             character = input[h++];
             //Notice how we go down each row and pick the index position of what keywordList item we are on
-             dArray[row][keywordList.indexOf(column)] = character;
+            if (typeof(character) == 'undefined'){
+                dArray[row][keywordList.indexOf(column)] = " ";
+            }else{
+                dArray[row][keywordList.indexOf(column)] = character;
+            }
         }
     }
     return dArray;
@@ -134,14 +130,18 @@ function outputPlaintext(keywordList, dArray){
 }
 
 //This function uses Tabulator to create the table that will be shown
-function buildTable(){
-    //USE addData function TO AUTOMATE THIS, call it buildEncipheredTable
-    var tableData = [
-    {id:1, name:"Billy Bob", age:12, gender:"male", height:95, col:"red", dob:"14/05/2010"},
-    {id:2, name:"Jenny Jane", age:42, gender:"female", height:142, col:"blue", dob:"30/07/1954"},
-    {id:3, name:"Steve McAlistaire", age:35, gender:"male", height:176, col:"green", dob:"04/11/1982"},
-    ];
-
+function buildTable(ctArray, list){
+    var tableData = [];
+    //Automatically generate the column headers based on the number of columns aka list.length
+    //{list[0]:ctArray[0][0], list[1]:ctArray[0][1], etc}
+    //Iterate through the array with for loop for the number of rows aka ctArray.length, then for loop for the length of that row aka list.length
+    var row = {}, header;
+    for(var i = 0; i < ctArray.length; i++){
+        for(var j = 0; j < list.length; j++){
+            row = {...row, [list[j]]:ctArray[i][j]};
+        }
+        tableData.push(row);
+    }
     var table = new Tabulator("#columnarTable",{
         data:tableData,
         layout:"fitColumns",
@@ -150,42 +150,57 @@ function buildTable(){
     });
     table.redraw();
     return table;
-    //NEED TO HARD CODE WIDTHS OF THE COLUMNS SINCE THEY DON'T WANT TO REDRAW PROPERLY??
 }
 
 //This function handles the enciphering process, remember in by rows and out by columns
 function columnarEncipher(input, keyword){
-    $("#modalHeader").text("Encrypting");
     var eArray = createEncipherArray(input, keyword);
     var keywordList = orderKeyword(keyword);
-    buildTable();
-    document.getElementsByClassName('tabulator-col')[0].click();
     return outputCiphertext(keywordList, eArray);
 }
 
 //This function handles the deciphering process, remember in by columns and out by rows
 function columnarDecipher(input, keyword){
-    $("#modalHeader").text("Decrypting");
     var keywordList = orderKeyword(keyword);
     var dArray = createDecipherArray(input, keywordList);
-    buildTable();
-    document.getElementsByClassName('tabulator-col')[0].click();
     return outputPlaintext(keywordList, dArray);
 }
 
 //This function handles the button Open Modal onclick event when user wants to see the table 
 function openModal(){
+    var input = getInput();
+    //Regular checks for the input
+    if (input != "") {
+        //Remove spaces
+        input = input.replace(/\s/ig, '');
+        input = input.toLowerCase();
+    }
     $("#modalHeader").text("Guess Keyword Length:");
     $("#keywordSize").removeClass("d-none");
-    buildTable();
+    var list = incrementingList($("#keywordSize").val());
+    buildTable(createDecipherArray(input, list), list);
     //Javascript Callback that will make the tabulator be formatted properly
-    $("#cipherModal").show(function(){document.getElementsByClassName('tabulator-col')[0].click()});
-    //input = getInput();
-    //input = input.replace(/\s/ig, '');
+    $("#cipherModal").show(function(){document.getElementsByClassName('tabulator-col')[0].click();});
+}
 
-    //If there is a keyword, we know we are just showing the input from the buildTable function
-        //need to call buildTable();
-    //If there isn't a keyword, we are guessing the keyword length
+//This function will rebuild the table when the user changes their keyword length guess
+function updateTable(){
+    var input = getInput();
+    //Regular checks for the input
+    if (input != "") {
+        //Remove spaces
+        input = input.replace(/\s/ig, '');
+        input = input.toLowerCase();
+    }
+    var list = incrementingList($("#keywordSize").val());
+    buildTable(createDecipherArray(input, list), list);
+}
 
-    //Need to pull input from header of modal, should be integer    
+//This funciton will create an incrementing numbered list based on the keywordSize input
+function incrementingList(size){
+    var keywordList = [];
+    for(var i = 0; i < size; i++){
+        keywordList[i] = i;
+    }
+    return keywordList;
 }

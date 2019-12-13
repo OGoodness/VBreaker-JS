@@ -346,8 +346,5 @@ function cipherChange(){
         case 'Multiplicative':
             $('#multiplicativeCipher').removeClass("d-none");
             break;
-        case 'Playfair':
-            $('#btnModal').removeClass("d-none");
-            break;
     }
 }
