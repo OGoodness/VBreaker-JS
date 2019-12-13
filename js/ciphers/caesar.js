@@ -26,7 +26,6 @@ function caeserCipher(shiftText, text, isDecrypt = "encrypt") {
 		shift = 26 - Math.abs(shift);
     }
 	if (isDecrypt != "encrypt"){
-		console.log("d");
 		shift = (26 - shift);
 	}
 	shift = shift % 26;
