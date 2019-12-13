@@ -91,7 +91,7 @@ function decipher_Clicked() {
             break;
         case "Multiplicative":
             var multiShift = document.getElementById("multiplicative").value;
-            output = affine(multiShift, caesarShift, input, "decrypt");
+            output = affine(multiShift, 0, input, "decrypt");
             break;
         case "Affine":
             var caesarShift = document.getElementById("caesar-shift").value;
