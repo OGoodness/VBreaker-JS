@@ -14,6 +14,8 @@
 // key = the key to alter the alphabet
 // alphabet = The alphabet to use if not A-Z
 //ALPHABET is out of order because Christiansen says a starts at 1
+
+//This functioned is unused
 function multiplicative(mult, text, alphabet = 'ZABCDEFGHIJKLMNOPQRSTUVWXY', isDecrypt = "decrypt")
 {
     var output = "";
